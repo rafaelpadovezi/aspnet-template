@@ -1,0 +1,12 @@
+name: Run Template
+
+on: create
+
+jobs:
+  setup:
+    name: Initilize repository
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install template
+        run: dotnet new --install ./
+      
