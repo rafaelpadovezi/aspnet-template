@@ -44,7 +44,7 @@ public class ConfigureSwaggerOptions : IConfigureOptions<SwaggerGenOptions>
 
             foreach (var (key, value) in swaggerDoc.Paths)
             {
-                replacements.Add(Regex.Replace(key, "/v\\d*/", "/"), value);
+                replacements.Add(Regex.Replace(key, "^/v\\d*/", "/"), value);
             }
 
             swaggerDoc.Paths = replacements;
