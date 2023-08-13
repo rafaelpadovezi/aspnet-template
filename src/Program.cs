@@ -22,7 +22,16 @@ builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwa
 builder.Services.AddDbContext<AppDbContext>(
     options => options.UseSqlServer(builder.Configuration.GetConnectionString("AppDbContext")));
 
+builder.Services.AddHealthChecks()
+    .AddDbContextCheck<AppDbContext>();;
+
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    context.Database.EnsureCreated();
+}
 
 // Configure the HTTP request pipeline.
 app.UseSwagger();
@@ -39,4 +48,9 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+app.MapHealthChecks("/health");
+
 app.Run();
+
+// For testing
+public partial class Program { }
