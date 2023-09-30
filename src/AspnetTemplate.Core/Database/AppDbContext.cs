@@ -1,7 +1,7 @@
 ﻿using AspnetTemplate.Core.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace AspnetTemplate.Infrastructure;
+namespace AspnetTemplate.Core.Infrastructure;
 
 public class AppDbContext : DbContext
 {

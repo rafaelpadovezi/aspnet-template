@@ -1,5 +1,5 @@
-using AspnetTemplate.Configuration;
-using AspnetTemplate.Infrastructure;
+using AspnetTemplate.Api.Configuration;
+using AspnetTemplate.Core.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.SwaggerGen;
@@ -53,4 +53,7 @@ app.MapHealthChecks("/health");
 app.Run();
 
 // For testing
-public partial class Program { }
+namespace AspnetTemplate.Api
+{
+    public partial class Program { }
+}

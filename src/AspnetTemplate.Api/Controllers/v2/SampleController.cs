@@ -1,12 +1,12 @@
 ﻿using Asp.Versioning;
+using AspnetTemplate.Core.Infrastructure;
 using AspnetTemplate.Core.Models;
-using AspnetTemplate.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace AspnetTemplate.Controllers.v1;
+namespace AspnetTemplate.Api.Controllers.v2;
 
-[ApiVersion("1")]
+[ApiVersion("2")]
 [ApiController]
 [Route("v{version:apiVersion}/[controller]")]
 public class SampleController : ControllerBase

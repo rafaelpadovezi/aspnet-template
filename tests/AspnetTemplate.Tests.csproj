@@ -21,8 +21,11 @@
         </PackageReference>
     </ItemGroup>
 
+
     <ItemGroup>
-      <ProjectReference Include="..\src\AspnetTemplate.csproj" />
+      <ProjectReference Include="..\src\AspnetTemplate.Api\AspnetTemplate.Api.csproj" />
+      <ProjectReference Include="..\src\AspnetTemplate.Core\AspnetTemplate.Core.csproj" />
+      <ProjectReference Include="..\src\AspnetTemplate.Worker\AspnetTemplate.Worker.csproj" />
     </ItemGroup>
 
 </Project>
