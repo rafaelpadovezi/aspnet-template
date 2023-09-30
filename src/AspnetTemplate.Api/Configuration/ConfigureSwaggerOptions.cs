@@ -1,7 +1,10 @@
 ﻿using System.Text.RegularExpressions;
+
 using Asp.Versioning.ApiExplorer;
+
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
+
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace AspnetTemplate.Api.Configuration;
@@ -10,13 +13,13 @@ public class ConfigureSwaggerOptions : IConfigureOptions<SwaggerGenOptions>
 {
     private readonly IApiVersionDescriptionProvider _provider;
 
-    public ConfigureSwaggerOptions( IApiVersionDescriptionProvider provider ) => _provider = provider;
+    public ConfigureSwaggerOptions(IApiVersionDescriptionProvider provider) => _provider = provider;
 
-    public void Configure( SwaggerGenOptions options )
+    public void Configure(SwaggerGenOptions options)
     {
-        foreach ( var description in _provider.ApiVersionDescriptions )
+        foreach (var description in _provider.ApiVersionDescriptions)
         {
-            options.SwaggerDoc( description.GroupName, CreateInfoForApiVersion( description ) );
+            options.SwaggerDoc(description.GroupName, CreateInfoForApiVersion(description));
         }
         options.DocumentFilter<RemoveVersionFromPath>();
     }
@@ -48,7 +51,7 @@ public class ConfigureSwaggerOptions : IConfigureOptions<SwaggerGenOptions>
             }
 
             swaggerDoc.Paths = replacements;
-        
+
             swaggerDoc.Servers = new List<OpenApiServer> { new() { Url = "/v" + swaggerDoc.Info.Version } };
         }
     }

@@ -5,3 +5,5 @@ WORKDIR /app
 COPY . .
 
 RUN dotnet build
+
+RUN dotnet tool install --global dotnet-ef

@@ -1,6 +1,8 @@
 ﻿using Asp.Versioning;
-using AspnetTemplate.Core.Infrastructure;
+
+using AspnetTemplate.Core.Database;
 using AspnetTemplate.Core.Models;
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -39,6 +41,6 @@ public class SampleController : ControllerBase
     {
         _context.Add(sample);
         await _context.SaveChangesAsync();
-        return CreatedAtAction(nameof(GetById), new {id = sample.Id, version = "1.0"}, sample);
+        return CreatedAtAction(nameof(GetById), new { id = sample.Id, version = "1.0" }, sample);
     }
 }

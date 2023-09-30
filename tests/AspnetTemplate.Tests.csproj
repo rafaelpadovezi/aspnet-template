@@ -28,4 +28,6 @@
       <ProjectReference Include="..\src\AspnetTemplate.Worker\AspnetTemplate.Worker.csproj" />
     </ItemGroup>
 
+
+
 </Project>

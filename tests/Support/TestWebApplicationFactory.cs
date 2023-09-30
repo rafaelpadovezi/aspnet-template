@@ -1,4 +1,5 @@
-﻿using AspnetTemplate.Core.Infrastructure;
+﻿using AspnetTemplate.Core.Database;
+
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Data.SqlClient;
@@ -9,7 +10,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace AspnetTemplate.Tests.Support;
 
-public class TestWebApplicationFactory :  WebApplicationFactory<Api.Program>
+public class TestWebApplicationFactory : WebApplicationFactory<Api.Program>
 {
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {

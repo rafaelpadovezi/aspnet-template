@@ -1,7 +1,9 @@
 using AspnetTemplate.Api.Configuration;
-using AspnetTemplate.Core.Infrastructure;
+using AspnetTemplate.Core.Database;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,7 +25,7 @@ builder.Services.AddDbContext<AppDbContext>(
     options => options.UseSqlServer(builder.Configuration.GetConnectionString("AppDbContext")));
 
 builder.Services.AddHealthChecks()
-    .AddDbContextCheck<AppDbContext>();;
+    .AddDbContextCheck<AppDbContext>(); ;
 
 var app = builder.Build();
 

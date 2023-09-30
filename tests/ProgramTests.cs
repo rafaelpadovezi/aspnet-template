@@ -1,5 +1,7 @@
 using System.Threading.Tasks;
+
 using AspnetTemplate.Tests.Support;
+
 using Xunit;
 
 namespace AspnetTemplate.Tests;
@@ -21,6 +23,5 @@ public class ProgramTests : IClassFixture<TestWebApplicationFactory>
         var result = await client.GetStringAsync("health");
 
         Assert.Equal("Healthy", result);
-        
     }
 }
