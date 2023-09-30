@@ -1,4 +1,7 @@
 ﻿version: "3.9"
+x-build: &dockerfile-dev-build
+  context: .
+  dockerfile: Dockerfile.local
 services:
   sqlserver:
     container_name: sqlserver
@@ -8,3 +11,42 @@ services:
       ACCEPT_EULA: "Y"
     ports:
       - "1433:1433"
+    healthcheck:
+      test: /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P "$$SA_PASSWORD" -Q "SELECT 1" || exit 1
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: 'rabbitmq'
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+  
+  app:
+    build: *dockerfile-dev-build
+    env_file: .env
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+    ports:
+      - "5087:8080"
+    volumes:
+      - "./:/app/"
+    entrypoint: [ "dotnet", "/app/src/AspnetTemplate.Api/bin/Debug/net7.0/AspnetTemplate.Api.dll" ]
+
+  integration-tests:
+    build: *dockerfile-dev-build
+    env_file: .env
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+    volumes:
+      - "./:/app/"
+    entrypoint: [ "dotnet", "test" ]
