@@ -1,7 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
     
     <ItemGroup>
+        <PackageReference Include="DotNetCore.CAP.RabbitMQ" Version="7.2.1" />
+        <PackageReference Include="DotNetCore.CAP.SqlServer" Version="7.2.1" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.11" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="7.0.4" />
         <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="7.0.11" />
     </ItemGroup>
 

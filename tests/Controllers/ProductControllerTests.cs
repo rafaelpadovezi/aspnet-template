@@ -2,8 +2,6 @@
 using AspnetTemplate.Core.Dtos;
 using AspnetTemplate.Core.Models;
 
-using Azure;
-
 namespace AspnetTemplate.Tests.Controllers;
 
 public class ProductControllerTests : IClassFixture<TestWebApplicationFactory>
@@ -71,7 +69,7 @@ public class ProductControllerTests : IClassFixture<TestWebApplicationFactory>
         await _factory.DbContext.SaveChangesAsync();
 
         var response = await client.GetFromJsonAsync<Paginated<ProductDto>>($"{Endpoint}?code=222");
-
+        Assert.NotNull(response);
         Assert.Equal(1, response.Count);
         Assert.Collection(response.Results, item => Assert.Equal("2222", item.Code));
     }

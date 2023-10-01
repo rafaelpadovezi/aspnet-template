@@ -1,3 +1,3 @@
-﻿global using Xunit;
+﻿global using AspnetTemplate.Tests.Support;
 global using System.Net.Http.Json;
-global using AspnetTemplate.Tests.Support;
+global using Xunit;

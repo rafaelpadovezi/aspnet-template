@@ -1,14 +1,14 @@
 using AspnetTemplate.Api.Configuration;
 using AspnetTemplate.Core.Database;
-
+using AspnetTemplate.Core.Setup;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
-
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.AddSharedAppSettings();
+
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
 builder.Services
@@ -25,8 +25,10 @@ builder.Services.AddDbContext<AppDbContext>(
     options => options.UseSqlServer(builder.Configuration.GetConnectionString("AppDbContext"))
 );
 
-builder.Services.AddHealthChecks().AddDbContextCheck<AppDbContext>();
-;
+builder.Services
+    .AddHealthChecks()
+    .AddDbContextCheck<AppDbContext>()
+    .AddRabbitMQ(builder.Configuration);
 
 var app = builder.Build();
 

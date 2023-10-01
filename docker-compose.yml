@@ -29,24 +29,25 @@ services:
       - "5672:5672"
       - "15672:15672"
   
-  app:
+  common:
     build: *dockerfile-dev-build
     env_file: .env
     depends_on:
       sqlserver:
         condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    volumes:
+      - "./:/app/"
+
+  app:
+    extends:
+      service: common
     ports:
       - "5087:8080"
-    volumes:
-      - "./:/app/"
     entrypoint: [ "dotnet", "/app/src/AspnetTemplate.Api/bin/Debug/net7.0/AspnetTemplate.Api.dll" ]
 
-  tests:
-    build: *dockerfile-dev-build
-    env_file: .env
-    depends_on:
-      sqlserver:
-        condition: service_healthy
-    volumes:
-      - "./:/app/"
+  test:
+    extends:
+      service: common
     entrypoint: [ "dotnet", "test" ]
