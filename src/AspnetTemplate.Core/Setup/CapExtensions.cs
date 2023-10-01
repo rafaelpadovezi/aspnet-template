@@ -1,7 +1,9 @@
 ﻿using AspnetTemplate.Core.Database;
 using DotNetCore.CAP;
+using DotNetCore.CAP.Internal;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace AspnetTemplate.Core.Setup;
 
@@ -34,6 +36,22 @@ public static class CapExtensions
                 o.BasicQosOptions = new RabbitMQOptions.BasicQos(
                     configuration.GetValue<ushort>("RabbitMQ:BasicQos")
                 );
+                o.CustomHeadersBuilder = (message, serviceProvider) =>
+                {
+                    var snowFlakeId = serviceProvider.GetRequiredService<ISnowflakeId>();
+                    var messageId = snowFlakeId.NextId().ToString();
+                    var logger = serviceProvider.GetRequiredService<ILogger>();
+
+                    logger.LogWarning(
+                        "Message without message id. Setting as {MessageId}",
+                        messageId
+                    );
+                    return new List<KeyValuePair<string, string>>
+                    {
+                        new(DotNetCore.CAP.Messages.Headers.MessageId, messageId),
+                        new(DotNetCore.CAP.Messages.Headers.MessageName, message.RoutingKey)
+                    };
+                };
             });
         });
     }

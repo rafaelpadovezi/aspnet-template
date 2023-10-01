@@ -37,8 +37,8 @@ services:
         condition: service_healthy
       rabbitmq:
         condition: service_healthy
-    volumes:
-      - "./:/app/"
+#    volumes:
+#      - "./:/app/"
 
   app:
     extends:
@@ -46,6 +46,13 @@ services:
     ports:
       - "5087:8080"
     entrypoint: [ "dotnet", "/app/src/AspnetTemplate.Api/bin/Debug/net7.0/AspnetTemplate.Api.dll" ]
+    
+  worker:
+    extends:
+      service: common
+    ports:
+      - "5087:8080"
+    entrypoint: [ "dotnet", "/app/src/AspnetTemplate.Api/bin/Debug/net7.0/AspnetTemplate.Worker.dll", "--", "product.created"]
 
   test:
     extends:

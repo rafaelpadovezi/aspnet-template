@@ -87,5 +87,7 @@ public class ProductControllerTests_Post : IClassFixture<TransactionalAppFixture
         var addedProduct = await response.Content.ReadFromJsonAsync<ProductDto>();
         var dbProduct = _productsDb.SingleOrDefault(x => addedProduct!.Id == x.Id);
         Assert.Equal("1111", dbProduct!.Code);
+        var message = await _factory.DbContext.LastCapPublishedMessage<Product>("product.created");
+        Assert.Equal("1111", message.Code);
     }
 }

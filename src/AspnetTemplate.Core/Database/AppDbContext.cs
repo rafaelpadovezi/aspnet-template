@@ -1,6 +1,6 @@
 ﻿using AspnetTemplate.Core.Models;
-
 using Microsoft.EntityFrameworkCore;
+using Ziggurat.SqlServer;
 
 namespace AspnetTemplate.Core.Database;
 
@@ -24,6 +24,8 @@ public class AppDbContext : DbContext
             .OwnsOne(product => product.Photos, builder => builder.ToJson())
             .HasIndex(x => x.Code)
             .IsUnique();
+
+        modelBuilder.MapMessageTracker();
     }
 
     public override int SaveChanges()

@@ -5,7 +5,12 @@
         <PackageReference Include="DotNetCore.CAP.SqlServer" Version="7.2.1" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.11" />
         <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="7.0.4" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="7.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="7.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
         <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="7.0.11" />
+        <PackageReference Include="Ziggurat.CapAdapter" Version="7.0.1" />
+        <PackageReference Include="Ziggurat.SqlServer" Version="7.0.1" />
     </ItemGroup>
 
 </Project>
