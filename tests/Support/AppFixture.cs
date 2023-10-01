@@ -12,14 +12,13 @@ using Microsoft.Extensions.Options;
 
 namespace AspnetTemplate.Tests.Support;
 
-public class TestWebApplicationFactory : WebApplicationFactory<Api.Program>
+public class AppFixture : WebApplicationFactory<Api.Program>
 {
     private readonly IDbContextTransaction _transation;
-    public AppDbContext DbContext { get; }
+    public AppDbContext DbContext => Services.GetRequiredService<AppDbContext>();
 
-    public TestWebApplicationFactory()
+    public AppFixture()
     {
-        DbContext = Services.GetRequiredService<AppDbContext>();
         _transation = DbContext.Database.BeginTransaction();
     }
 
@@ -36,7 +35,7 @@ public class TestWebApplicationFactory : WebApplicationFactory<Api.Program>
             services.RemoveAll<DbContextOptions<AppDbContext>>();
             services.RemoveAll<IConfigureOptions<SqlServerOptions>>();
 
-            var builder = new SqlConnectionStringBuilder(
+            var connectionStringBuilder = new SqlConnectionStringBuilder(
                 configuration.GetConnectionString("AppDbContext")
             )
             {
@@ -44,12 +43,12 @@ public class TestWebApplicationFactory : WebApplicationFactory<Api.Program>
             };
 
             services.AddDbContext<AppDbContext>(
-                options => options.UseSqlServer(builder.ConnectionString),
+                options => options.UseSqlServer(connectionStringBuilder.ConnectionString),
                 ServiceLifetime.Singleton
             );
 
             services.AddSingleton<IConfigureOptions<SqlServerOptions>>(
-                _ => new TestConfigureSqlServerOptions(builder.ConnectionString)
+                _ => new TestConfigureSqlServerOptions(connectionStringBuilder.ConnectionString)
             );
         });
     }

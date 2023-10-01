@@ -1,12 +1,10 @@
 ﻿using Asp.Versioning;
-
 using AspnetTemplate.Core.Database;
 using AspnetTemplate.Core.Dtos;
 using AspnetTemplate.Core.Models;
-
+using DotNetCore.CAP;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.JSInterop.Infrastructure;
 
 namespace AspnetTemplate.Api.Controllers.v1;
 
@@ -16,10 +14,20 @@ namespace AspnetTemplate.Api.Controllers.v1;
 public class ProductController : ControllerBase
 {
     private readonly AppDbContext _context;
+    private readonly ICapPublisher _capPublisher;
+    private readonly string _productCreatedRoutingKey;
 
-    public ProductController(AppDbContext context)
+    public ProductController(
+        AppDbContext context,
+        ICapPublisher capPublisher,
+        IConfiguration configuration
+    )
     {
         _context = context;
+        _capPublisher = capPublisher;
+        _productCreatedRoutingKey =
+            configuration.GetValue<string>("RoutingKeys:ProductCreated")
+            ?? throw new InvalidOperationException();
     }
 
     [HttpGet("{id:guid}")]
@@ -48,7 +56,11 @@ public class ProductController : ControllerBase
         };
 
         _context.Products.Add(product);
-        await _context.SaveChangesAsync();
+        using (_context.Database.BeginTransaction(_capPublisher, autoCommit: true))
+        {
+            await _context.SaveChangesAsync();
+            await _capPublisher.PublishAsync(_productCreatedRoutingKey, product);
+        }
 
         return Ok(ProductDto.FromProduct(product));
     }

@@ -1,10 +1,10 @@
 namespace AspnetTemplate.Tests;
 
-public class ProgramTests : IClassFixture<TestWebApplicationFactory>
+public class ProgramTests : IClassFixture<AppFixture>
 {
-    private readonly TestWebApplicationFactory _factory;
+    private readonly AppFixture _factory;
 
-    public ProgramTests(TestWebApplicationFactory factory)
+    public ProgramTests(AppFixture factory)
     {
         _factory = factory;
     }
