@@ -25,6 +25,8 @@ builder.Services.AddDbContext<AppDbContext>(
     options => options.UseSqlServer(builder.Configuration.GetConnectionString("AppDbContext"))
 );
 
+builder.Services.AddCap(builder.Configuration);
+
 builder.Services
     .AddHealthChecks()
     .AddDbContextCheck<AppDbContext>()
