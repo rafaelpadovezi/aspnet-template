@@ -22,10 +22,11 @@ builder.Services
 builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
 
 builder.Services.AddDbContext<AppDbContext>(
-    options => options.UseSqlServer(builder.Configuration.GetConnectionString("AppDbContext")));
+    options => options.UseSqlServer(builder.Configuration.GetConnectionString("AppDbContext"))
+);
 
-builder.Services.AddHealthChecks()
-    .AddDbContextCheck<AppDbContext>(); ;
+builder.Services.AddHealthChecks().AddDbContextCheck<AppDbContext>();
+;
 
 var app = builder.Build();
 
@@ -42,7 +43,10 @@ app.UseSwaggerUI(options =>
     var descriptions = app.DescribeApiVersions();
     foreach (var description in descriptions)
     {
-        options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", description.GroupName.ToUpperInvariant());
+        options.SwaggerEndpoint(
+            $"/swagger/{description.GroupName}/swagger.json",
+            description.GroupName.ToUpperInvariant()
+        );
     }
 });
 

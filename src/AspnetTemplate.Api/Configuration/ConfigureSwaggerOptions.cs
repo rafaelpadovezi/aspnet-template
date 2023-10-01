@@ -52,7 +52,10 @@ public class ConfigureSwaggerOptions : IConfigureOptions<SwaggerGenOptions>
 
             swaggerDoc.Paths = replacements;
 
-            swaggerDoc.Servers = new List<OpenApiServer> { new() { Url = "/v" + swaggerDoc.Info.Version } };
+            swaggerDoc.Servers = new List<OpenApiServer>
+            {
+                new() { Url = "/v" + swaggerDoc.Info.Version }
+            };
         }
     }
 }

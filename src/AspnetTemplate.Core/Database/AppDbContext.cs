@@ -9,22 +9,21 @@ public class AppDbContext : DbContext
     public DbSet<Sample> Samples { get; set; }
     public DbSet<Product> Products => Set<Product>();
 
-    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
-    {
-    }
+    public AppDbContext(DbContextOptions<AppDbContext> options)
+        : base(options) { }
 
     protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
     {
-        configurationBuilder
-            .Properties<string>()
-            .HaveMaxLength(256);
+        configurationBuilder.Properties<string>().HaveMaxLength(256);
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Product>()
+        modelBuilder
+            .Entity<Product>()
             .OwnsOne(product => product.Photos, builder => builder.ToJson())
-            .HasIndex(x => x.Code).IsUnique();
+            .HasIndex(x => x.Code)
+            .IsUnique();
     }
 
     public override int SaveChanges()

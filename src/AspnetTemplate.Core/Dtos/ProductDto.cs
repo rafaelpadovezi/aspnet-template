@@ -16,9 +16,9 @@ public record ProductDto
         {
             Id = product.Id,
             Code = product.Code,
-            Attributes =
-                product.Attributes.Select(attr => new ProductAttributeDto { Key = attr.Key, Value = attr.Value })
-                    .ToList(),
+            Attributes = product.Attributes
+                .Select(attr => new ProductAttributeDto { Key = attr.Key, Value = attr.Value })
+                .ToList(),
             Photos = product.Photos.Select(x => (string)x).ToList()
         };
     }

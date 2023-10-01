@@ -1,18 +1,15 @@
-﻿using System.Net.Http.Json;
-
-using AspnetTemplate.Core.Database;
+﻿using AspnetTemplate.Api.Controllers.v1;
 using AspnetTemplate.Core.Dtos;
-using AspnetTemplate.Tests.Support;
+using AspnetTemplate.Core.Models;
 
-using Microsoft.Extensions.DependencyInjection;
-
-using Xunit;
+using Azure;
 
 namespace AspnetTemplate.Tests.Controllers;
 
 public class ProductControllerTests : IClassFixture<TestWebApplicationFactory>
 {
     private readonly TestWebApplicationFactory _factory;
+    private const string Endpoint = "v1/product";
 
     public ProductControllerTests(TestWebApplicationFactory factory)
     {
@@ -20,26 +17,62 @@ public class ProductControllerTests : IClassFixture<TestWebApplicationFactory>
     }
 
     [Fact]
-    public async Task Post_ShouldSaveProduct()
+    public async Task Post_NewProduct_ShouldAddToDb()
     {
-        var context = _factory.Services.GetRequiredService<AppDbContext>();
-        var transaction = await context.Database.BeginTransactionAsync();
-
         var client = _factory.CreateClient();
         var productDto = new ProductDto
         {
-            Code = "1234",
+            Code = "1111",
             Name = "Shiny product",
-            Attributes = new List<ProductAttributeDto> { new() { Key = "" } }
+            Attributes = new List<ProductAttributeDto>
+            {
+                new() { Key = "key", Value = "value" }
+            },
+            Photos = new List<string> { "https://localhost/some-photo" }
         };
 
-        var result = await client.PostAsJsonAsync("v1/product", productDto);
+        var response = await client.PostAsJsonAsync(Endpoint, productDto);
 
-        var addedProduct = await result.Content.ReadFromJsonAsync<ProductDto>();
-
-        var dbProduct = context.Products.SingleOrDefault(x => addedProduct!.Id == x.Id);
-        Assert.Equal("1234", dbProduct!.Code);
-        await transaction.RollbackAsync();
+        await response.FailIfNotSuccess();
+        var addedProduct = await response.Content.ReadFromJsonAsync<ProductDto>();
+        var dbProduct = _factory.DbContext.Products.SingleOrDefault(x => addedProduct!.Id == x.Id);
+        Assert.Equal("1111", dbProduct!.Code);
     }
 
+    [Fact]
+    public async Task Get_ShouldGetProducts()
+    {
+        var client = _factory.CreateClient();
+        _factory.DbContext.Products.AddRange(
+            new List<Product>
+            {
+                new()
+                {
+                    Code = "2222",
+                    Name = "Shiny product",
+                    Attributes = new List<ProductAttribute>
+                    {
+                        new() { Key = "key", Value = "value" }
+                    },
+                    Photos = new List<Link> { "https://localhost/some-photo" }
+                },
+                new()
+                {
+                    Code = "3333",
+                    Name = "Nice product",
+                    Attributes = new List<ProductAttribute>
+                    {
+                        new() { Key = "other-key", Value = "other-value" }
+                    },
+                    Photos = new List<Link> { "https://localhost/some-photo" }
+                }
+            }
+        );
+        await _factory.DbContext.SaveChangesAsync();
+
+        var response = await client.GetFromJsonAsync<Paginated<ProductDto>>($"{Endpoint}?code=222");
+
+        Assert.Equal(1, response.Count);
+        Assert.Collection(response.Results, item => Assert.Equal("2222", item.Code));
+    }
 }

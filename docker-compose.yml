@@ -41,7 +41,7 @@ services:
       - "./:/app/"
     entrypoint: [ "dotnet", "/app/src/AspnetTemplate.Api/bin/Debug/net7.0/AspnetTemplate.Api.dll" ]
 
-  integration-tests:
+  tests:
     build: *dockerfile-dev-build
     env_file: .env
     depends_on:
