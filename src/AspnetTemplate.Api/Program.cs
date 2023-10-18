@@ -3,12 +3,17 @@ using AspnetTemplate.Core.Database;
 using AspnetTemplate.Core.Setup;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using Serilog;
 using Swashbuckle.AspNetCore.SwaggerGen;
+
+var configuration = new ConfigurationBuilder().AddSharedConfig().Build();
+Log.Logger = new LoggerConfiguration().ReadFrom.Configuration(configuration).CreateLogger();
+Log.Information("Logger initialized. Starting up the application.");
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.AddSharedAppSettings();
-
+builder.Host.UseSerilog();
+builder.Configuration.AddConfiguration(configuration);
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
 builder.Services
@@ -53,6 +58,8 @@ app.UseSwaggerUI(options =>
         );
     }
 });
+
+app.UseSerilogRequestLogging();
 
 app.UseAuthorization();
 
