@@ -2,8 +2,16 @@
 
 WORKDIR /app
 
-COPY . .
+COPY src/AspnetTemplate.Api/*.csproj ./src/AspnetTemplate.Api/
+COPY src/AspnetTemplate.Core/*.csproj ./src/AspnetTemplate.Core/
+COPY src/AspnetTemplate.Worker/*.csproj ./src/AspnetTemplate.Worker/
+COPY tests/*.csproj ./tests/
+COPY Directory.Build.props ./
+COPY Directory.Packages.props ./
+COPY *.sln ./
+RUN dotnet restore
 
+COPY . .
 RUN dotnet build
 
-RUN dotnet tool install --global dotnet-ef
+RUN dotnet tool install --global dotnet-ef --version 7.0.14

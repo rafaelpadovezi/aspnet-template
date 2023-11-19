@@ -1,0 +1,40 @@
+<Project>
+    <PropertyGroup>
+        <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageVersion Include="Asp.Versioning.Http" Version="7.0.1" />
+        <PackageVersion Include="Asp.Versioning.Mvc.ApiExplorer" Version="7.0.1" />
+        <PackageVersion Include="AspNetCore.HealthChecks.Rabbitmq" Version="7.0.0" />
+        <PackageVersion Include="DotNetCore.CAP.RabbitMQ" Version="7.2.1" />
+        <PackageVersion Include="DotNetCore.CAP.SqlServer" Version="7.2.1" />
+        <PackageVersion Include="JSM.FluentValidation.AspNet.AsyncFilter" Version="2.0.0" />
+        <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.11" />
+        <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.11" />
+        <PackageVersion Include="Microsoft.Extensions.Configuration.Binder" Version="7.0.4" />
+        <PackageVersion Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="7.0.0" />
+        <PackageVersion Include="Microsoft.Extensions.Configuration.FileExtensions" Version="7.0.0" />
+        <PackageVersion Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
+        <PackageVersion Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="7.0.11" />
+        <PackageVersion Include="Microsoft.Extensions.Hosting" Version="7.0.1"/>
+        <PackageVersion Include="Serilog.AspNetCore" Version="7.0.0" />
+        <PackageVersion Include="Serilog.Expressions" Version="3.4.1" />
+        <PackageVersion Include="Serilog.Formatting.Elasticsearch" Version="9.0.3" />
+        <PackageVersion Include="Serilog.Settings.Configuration" Version="7.0.1" />
+        <PackageVersion Include="Serilog.Sinks.Async" Version="1.5.0" />
+        <PackageVersion Include="Serilog.Sinks.Console" Version="4.1.0" />
+        <PackageVersion Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+        <PackageVersion Include="Ziggurat.CapAdapter" Version="7.0.1" />
+        <PackageVersion Include="Ziggurat.SqlServer" Version="7.0.1" />
+    </ItemGroup>
+    
+    <ItemGroup>
+        <PackageVersion Include="Microsoft.AspNetCore.Mvc.Testing" Version="7.0.11" />
+        <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.7.2" />
+        <PackageVersion Include="Respawn" Version="6.1.0" />
+        <PackageVersion Include="xunit" Version="2.5.1" />
+        <PackageVersion Include="xunit.runner.visualstudio" Version="2.5.0" />
+        <PackageVersion Include="coverlet.collector" Version="6.0.0" />
+    </ItemGroup>
+</Project>
