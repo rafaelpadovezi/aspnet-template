@@ -1,0 +1,9 @@
+﻿**
+!src/
+!tests/
+!scripts/
+!*.sln
+!Directory.Build.props
+!Directory.Packages.props
+**/bin/
+**/obj/
