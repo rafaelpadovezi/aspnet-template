@@ -2,6 +2,7 @@
 !src/
 !tests/
 !scripts/
+!tools/
 !*.sln
 !Directory.Build.props
 !Directory.Packages.props

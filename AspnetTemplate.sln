@@ -12,6 +12,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspnetTemplate.Core", "src\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspnetTemplate.Worker", "src\AspnetTemplate.Worker\AspnetTemplate.Worker.csproj", "{6C6E58E9-0821-4770-9391-0310FB7952B9}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{CE51729D-309C-47EF-9BF5-B53C3983B63B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tools", "tools\Tools.csproj", "{E2F7B36B-1ABF-4442-91A6-715A183E283F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -22,6 +26,7 @@ Global
 		{2A578BAE-585C-4871-8A26-AA32001565F9} = {16A459E6-67BD-457D-ADE8-EF183753DC2D}
 		{69561C06-7795-419D-A17E-936D173EA48F} = {16A459E6-67BD-457D-ADE8-EF183753DC2D}
 		{6C6E58E9-0821-4770-9391-0310FB7952B9} = {16A459E6-67BD-457D-ADE8-EF183753DC2D}
+		{E2F7B36B-1ABF-4442-91A6-715A183E283F} = {CE51729D-309C-47EF-9BF5-B53C3983B63B}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{29237EA4-EBB5-4EC8-BEA4-2B4324233ACF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -40,5 +45,9 @@ Global
 		{6C6E58E9-0821-4770-9391-0310FB7952B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6C6E58E9-0821-4770-9391-0310FB7952B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6C6E58E9-0821-4770-9391-0310FB7952B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E2F7B36B-1ABF-4442-91A6-715A183E283F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2F7B36B-1ABF-4442-91A6-715A183E283F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2F7B36B-1ABF-4442-91A6-715A183E283F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2F7B36B-1ABF-4442-91A6-715A183E283F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

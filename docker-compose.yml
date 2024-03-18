@@ -45,14 +45,14 @@ services:
       service: common
     ports:
       - "5087:8080"
-    entrypoint: [ "dotnet", "/app/src/AspnetTemplate.Api/bin/Debug/net7.0/AspnetTemplate.Api.dll" ]
+    entrypoint: [ "dotnet", "/app/src/AspnetTemplate.Api/bin/Debug/net8.0/AspnetTemplate.Api.dll" ]
     
   worker:
     extends:
       service: common
     ports:
       - "5087:8080"
-    entrypoint: [ "dotnet", "/app/src/AspnetTemplate.Api/bin/Debug/net7.0/AspnetTemplate.Worker.dll", "--", "product.created"]
+    entrypoint: [ "dotnet", "/app/src/AspnetTemplate.Api/bin/Debug/net8.0/AspnetTemplate.Worker.dll", "--", "product.created"]
 
   test:
     extends:

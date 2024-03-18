@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+    </PropertyGroup>
+    
+    <ItemGroup>
+        <PackageReference Include="System.CommandLine" />
+    </ItemGroup>
+    
+    <ItemGroup>
+      <ProjectReference Include="..\src\AspnetTemplate.Api\AspnetTemplate.Api.csproj" />
+      <ProjectReference Include="..\src\AspnetTemplate.Worker\AspnetTemplate.Worker.csproj" />
+    </ItemGroup>
+
+</Project>
