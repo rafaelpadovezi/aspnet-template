@@ -7,7 +7,7 @@
     <PackageVersion Include="Asp.Versioning.Mvc.ApiExplorer" Version="8.0.0" />
     <PackageVersion Include="AspNetCore.HealthChecks.Rabbitmq" Version="8.0.0" />
     <PackageVersion Include="DotNetCore.CAP.RabbitMQ" Version="8.0.1" />
-    <PackageVersion Include="DotNetCore.CAP.SqlServer" Version="8.0.1" />
+    <PackageVersion Include="DotNetCore.CAP.SqlServer" Version="8.1.0" />
     <PackageVersion Include="JSM.FluentValidation.AspNet.AsyncFilter" Version="2.0.0" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.3" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.3" />
